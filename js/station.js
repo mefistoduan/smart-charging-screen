@@ -128,12 +128,21 @@
   const stage = document.getElementById('layout-stage');
   const cols = LAYOUT_COLS;
   const rows = Math.max(3, Math.min(5, Math.ceil(st.piles / cols))); // 3~5 行自适应，多余格画备用车位
-  const rowMid = (r) => 78 + r * 100;
+  /* 行距根据容器宽高比自适应：让 SVG 以 contain 铺满面板，消除竖向留白 */
+  let rowGap = 100;
+  function fitRowGap() {
+    const w = stage.clientWidth || 1000, h = stage.clientHeight || 440;
+    const targetH = (1000 * h) / w;              // 与容器等比的 viewBox 高
+    let gap = (targetH - 78 - 62) / Math.max(1, rows - 1);
+    rowGap = Math.min(152, Math.max(86, gap));
+  }
+  const rowMid = (r) => 78 + r * rowGap;
   const bayX = (c) => 178 + c * 99;
-  const svgH = rowMid(rows - 1) + 62;
+  const svgH = () => rowMid(rows - 1) + 62;
 
   function buildLayout() {
-    let s = `<svg viewBox="0 0 1000 ${svgH}" preserveAspectRatio="xMidYMid meet">`;
+    fitRowGap();
+    let s = `<svg viewBox="0 0 1000 ${svgH()}" preserveAspectRatio="xMidYMid meet">`;
     /* 能源源头 */
     const sources = [
       { x: 14, y: rowMid(1) - 96, label: '电网接入', color: '#37e6ff', ico: '⚡' },
@@ -191,8 +200,19 @@
     }
     s += `</svg>`;
     stage.innerHTML = s;
+    if (selected) { // 重建后恢复选中高亮
+      const bay = stage.querySelector(`.bay[data-id="${selected}"]`);
+      if (bay) bay.classList.add('sel');
+    }
   }
+  let selected = null;
   buildLayout();
+  /* 容器尺寸变化时重算行距重建（防抖） */
+  let rsTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(rsTimer);
+    rsTimer = setTimeout(buildLayout, 200);
+  });
 
   /* ============================================================
      桩监视网格（4 列行 + 无缝滚动）
@@ -241,7 +261,6 @@
   });
 
   /* ---------- 双向选中联动 ---------- */
-  let selected = null;
   function selectPile(id) {
     selected = id === selected ? null : id;
     document.querySelectorAll('.pile').forEach((el) => el.classList.toggle('sel', el.dataset.id === selected));

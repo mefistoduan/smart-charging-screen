@@ -526,7 +526,7 @@ footer.ticker .copy a:hover { color: var(--cyan); }
 /* ============================================================
    详情页补充：场站档案
    ============================================================ */
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.688rem 0.875rem; padding: 0.5rem 6px 2px; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.875rem; padding: 0.3rem 6px 0.1rem; }
 .info-it { display: flex; flex-direction: column; gap: 3px; border-left: 2px solid rgba(64, 196, 255, .35); padding-left: 0.625rem; }
 .info-it .k { font-size: 0.688rem; color: var(--dim); letter-spacing: 1px; }
 .info-it .v { font-size: 13.5px; color: var(--text); line-height: 1.35; }
