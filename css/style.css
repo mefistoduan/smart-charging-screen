@@ -394,6 +394,10 @@ footer.ticker .copy a:hover { color: var(--cyan); }
    地图面板
    ============================================================ */
 .map-panel { flex: 1; }
+/* 地图面板内边距收到最小，绘图区最大化 */
+.map-panel .panel-bd { padding: 0 0.25rem 0.5rem; }
+/* 24h 趋势面板压缩后，图表内部留白同步收紧 */
+.panel-bd .chart[style] { min-height: 0; }
 .map-hd-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; margin-left: auto; max-width: 60%; }
 .dist-chip {
   font-size: 11.5px; letter-spacing: 1px; padding: 3px 0.625rem; cursor: pointer; user-select: none;

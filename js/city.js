@@ -91,7 +91,7 @@
       map: 'jinan',
       roam: false,
       zoom: 1.0,
-      aspectScale: 0.9,        // 轻微横向展宽，充分利用宽面板
+      aspectScale: 0.84,       // 横向展宽，充分利用宽面板
       layoutCenter: ['50%', '50%'],
       layoutSize: '100%',      // contain 填满面板高度，不裁剪边缘区县
       label: { show: true, color: 'rgba(150,200,240,.55)', fontSize: 10 },
