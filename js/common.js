@@ -15,10 +15,9 @@
     Number(n).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
   const pad = (n) => String(n).padStart(2, '0');
 
-  /* ---------- 数字翻牌（缓动 count-up） ---------- */
-  function countUp(el, target, { duration = 1600, digits = 0, suffix = '' } = {}) {
+  /* ---------- 数字翻牌（缓动 count-up，支持从当前值滚动） ---------- */
+  function countUp(el, target, { duration = 1600, digits = 0, suffix = '', from = 0 } = {}) {
     const start = performance.now();
-    const from = 0;
     function frame(t) {
       const p = Math.min(1, (t - start) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
@@ -187,7 +186,7 @@
       <div class="step" id="boot-step">INITIALIZING...</div>
       <div class="mail">${CONTACT}</div>`;
     document.body.appendChild(boot);
-    const steps = ['加载地理信息数据 ...', '校准遥测链路 ...', '同步 486 台充电桩状态 ...', '渲染可视化场景 ...', 'SYSTEM READY'];
+    const steps = ['加载地理信息数据 ...', '校准遥测链路 ...', '同步全场站充电桩遥测 ...', '渲染可视化场景 ...', 'SYSTEM READY'];
     const bar = boot.querySelector('#boot-bar');
     const stepEl = boot.querySelector('#boot-step');
     let i = 0;

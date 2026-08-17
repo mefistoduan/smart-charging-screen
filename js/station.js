@@ -39,8 +39,8 @@
   const badge = { normal: ['ok', '正常运行'], busy: ['run', '高负荷'], alarm: ['err', '故障告警'], offline: ['warn', '离线检修'] }[st.status];
   document.getElementById('st-badge-host').innerHTML = `<span class="st-badge ${badge[0]}">${badge[1]}</span>`;
   document.getElementById('info-grid').innerHTML = `
-    <div class="info-it"><span class="k">今日充电量</span><span class="v big">${fmt(st.kwh)}<small> kWh</small></span></div>
-    <div class="info-it"><span class="k">今日营收</span><span class="v big">¥${fmt(st.income)}<small> 元</small></span></div>
+    <div class="info-it"><span class="k">今日充电量</span><span class="v big"><span id="ig-kwh">${fmt(st.kwh)}</span><small> kWh</small></span></div>
+    <div class="info-it"><span class="k">今日营收</span><span class="v big"><span style="color:var(--amber)">¥</span><span id="ig-income" style="color:var(--amber)">${fmt(st.income)}</span><small> 元</small></span></div>
     <div class="info-it"><span class="k">站点地址</span><span class="v">${st.addr}</span></div>
     <div class="info-it"><span class="k">行政区域</span><span class="v">${st.district} · ${st.id}</span></div>
     <div class="info-it"><span class="k">桩位规模</span><span class="v">${st.piles} 桩（快充 ${st.fast} / 慢充 ${st.piles - st.fast}）</span></div>
@@ -93,14 +93,16 @@
     const evening = Math.exp(-Math.pow(h - 20, 2) / 7);
     return +(peak * (0.12 + morning * 0.55 + evening * 0.85)).toFixed(1);
   }
-  echarts.init(document.getElementById('chart-st-power')).setOption({
+  const stPowerChart = echarts.init(document.getElementById('chart-st-power'));
+  const stPowerData = hours.map((_, h) => (h <= nowHour ? stPowerAt(h) : null));
+  stPowerChart.setOption({
     tooltip: { ...CC.TOOLTIP, trigger: 'axis', valueFormatter: (v) => v == null ? '-' : v + ' kW' },
     grid: { left: 8, right: 14, top: 28, bottom: 4, containLabel: true },
     xAxis: { type: 'category', boundaryGap: false, data: hours, ...CC.AXIS },
     yAxis: { type: 'value', name: 'kW', nameTextStyle: { color: '#6d89ad' }, ...CC.AXIS },
     series: [{
       name: '场站功率', type: 'line', smooth: 0.4,
-      data: hours.map((_, h) => (h <= nowHour ? stPowerAt(h) : null)),
+      data: stPowerData,
       lineStyle: { color: '#2df0a6', width: 2.2, shadowBlur: 10, shadowColor: 'rgba(45,240,166,.55)' },
       itemStyle: { color: '#2df0a6' }, showSymbol: false,
       areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [
@@ -290,7 +292,7 @@
     return `
       <span class="num">${CC.pad(orderClock.getHours())}:${CC.pad(orderClock.getMinutes())}:${CC.pad(orderClock.getSeconds())}</span>
       <span class="pl">${p.id}</span>
-      <span class="st">${done ? CC.pick(['浙A', '浙B', '浙C']) + '·' + CC.pad(CC.rndInt(0, 99)) + CC.pick(['K', 'M', 'F', '8', '6']) + CC.pick(['8', '5', '2', 'D']) : p.plate}</span>
+      <span class="st">${done ? CC.pick(['鲁A', '鲁A', '鲁B']) + '·' + CC.pad(CC.rndInt(0, 99)) + CC.pick(['K', 'M', 'F', '8', '6']) + CC.pick(['8', '5', '2', 'D']) : p.plate}</span>
       <span class="num">${kwh}</span>
       <span class="num">¥${money}</span>
       <span style="text-align:right">${done ? '<span class="st-badge ok">已结算</span>' : '<span class="st-badge run">充电中</span>'}</span>`;
@@ -333,9 +335,15 @@
   CC.vMarquee(document.getElementById('alert-scroll'), { speed: 11, onRecycle: (it) => { it.innerHTML = evtItem(); } });
 
   /* ============================================================
-     实时脉动：SOC 递增 / 功率抖动 / 卡片刷新
+     实时脉动：SOC/功率 4s · 经营指标 5s · 水球利用率 12s
      ============================================================ */
-  setInterval(() => {
+  const statEls = [...document.querySelectorAll('#stat-strip .v')];
+  const igKwh = document.getElementById('ig-kwh');
+  const igIncome = document.getElementById('ig-income');
+  const liveSt = { kwh: st.kwh, orders: st.orders, income: st.income };
+  let livePower = curPower;
+
+  setInterval(() => { // SOC 递增 / 功率抖动 → 指标带 + 功率曲线
     let total = 0;
     piles.forEach((p) => {
       if (p.status === 'charging') {
@@ -347,8 +355,29 @@
         if (txt) txt.textContent = p.soc + '%';
       }
     });
-    document.getElementById('st-power-now').textContent = `▲ 当前 ${total.toFixed(1)} kW`;
-    const stripV = document.querySelectorAll('#stat-strip .v')[0];
-    if (stripV) stripV.textContent = total.toFixed(1);
+    const shown = +total.toFixed(1);
+    document.getElementById('st-power-now').textContent = `▲ 当前 ${shown} kW`;
+    if (statEls[0]) CC.countUp(statEls[0], shown, { from: livePower, digits: 1, duration: 900 });
+    livePower = shown;
+    stPowerData[nowHour] = +Math.max(5, total).toFixed(1);
+    stPowerChart.setOption({ series: [{ data: stPowerData }] });
   }, 4000);
+
+  setInterval(() => { // 经营指标微增 → 档案 + 指标带翻牌
+    const prev = { ...liveSt };
+    liveSt.kwh += CC.rndInt(4, 14);
+    liveSt.income += CC.rndInt(18, 60);
+    if (Math.random() < 0.5) liveSt.orders += 1;
+    st.kwh = liveSt.kwh; st.orders = liveSt.orders; st.income = liveSt.income;
+    CC.countUp(igKwh, liveSt.kwh, { from: prev.kwh, duration: 1200 });
+    CC.countUp(igIncome, liveSt.income, { from: prev.income, duration: 1200 });
+    CC.countUp(statEls[3], liveSt.orders, { from: prev.orders, duration: 1000 });
+  }, 5000);
+
+  setInterval(() => { // 水球利用率微扰
+    const prevUtil = st.util;
+    st.util = Math.max(15, Math.min(96, st.util + CC.rndInt(-2, 2)));
+    CC.countUp(document.getElementById('wb-n'), st.util, { from: prevUtil, duration: 1400 });
+    document.getElementById('wb-water').style.transform = `translateY(${100 - st.util}%)`;
+  }, 12000);
 })();

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>杭州市智慧充电运营监管平台 · 全市总览</title>
+  <title>济南市智慧充电运营监管平台 · 全市总览</title>
   <meta name="author" content="duanchangpeng@gmail.com">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -29,7 +29,7 @@
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">充电桩状态分布</div><div class="en">PILE STATUS DISTRIBUTION</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab">486 PILES</span></div>
+            <div class="deco"><span class="dot"></span><span class="lab" id="pile-total-lab">-- PILES</span></div>
           </div>
           <div class="panel-bd"><div class="chart" id="chart-donut"></div></div>
         </section>
@@ -58,7 +58,7 @@
           </div>
           <div class="panel-bd">
             <div class="chart" id="chart-map"></div>
-            <div class="map-net-tag"><i></i>GEO-NET LINKED · 26 NODES</div>
+            <div class="map-net-tag"><i></i><span id="map-nodes-lab">GEO-NET LINKED</span></div>
             <div class="map-legend">
               <div class="it"><i style="color:var(--cyan);background:var(--cyan)"></i>正常运行</div>
               <div class="it"><i style="color:var(--amber);background:var(--amber)"></i>高负荷运转</div>
@@ -143,7 +143,7 @@
   </div>
 
   <script src="js/lib/echarts.min.js"></script>
-  <script src="js/map-hangzhou.js"></script>
+  <script src="js/map-jinan.js"></script>
   <script src="js/data.js"></script>
   <script src="js/common.js"></script>
   <script src="js/city.js"></script>

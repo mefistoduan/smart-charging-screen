@@ -26,18 +26,20 @@
   CC.fitScreen();
   window.addEventListener('resize', CC.fitScreen);
   CC.buildHeader({
-    title: '杭州市智慧充电运营监管平台',
-    subtitle: 'HANGZHOU SMART CHARGING OPERATION SUPERVISORY PLATFORM',
+    title: '济南市智慧充电运营监管平台',
+    subtitle: 'JINAN SMART CHARGING OPERATION SUPERVISORY PLATFORM',
   });
   CC.decoratePanels();
   CC.playBoot('智慧充电运营监管平台');
   CC.plexus();
+  document.getElementById('pile-total-lab').textContent = `${TOTAL.piles} PILES`;
+  document.getElementById('map-nodes-lab').textContent = `GEO-NET LINKED · ${STATIONS.length} NODES`;
 
   CC.buildTicker([
     ['调度', `全市 ${TOTAL.charging} 台充电桩正在作业，实时负荷 ${(TOTAL.charging * 68 / 1000).toFixed(1)} MW，电网运行平稳。`],
     ['活动', '今晚 22:00-24:00 谷时充电优惠上线，参与站点 18 座，预计分流高峰负荷 12%。'],
-    ['工单', 'ST022 天目山站 3 号桩通信模块异常，运维班组已派出，预计 40 分钟内到达。'],
-    ['公告', '钱塘区新增 2 座超充站规划公示，合计 48 桩，含 480kW 液冷超充 12 桩。'],
+    ['工单', 'ST022 百脉泉公园站 3 号桩通信模块异常，运维班组已派出，预计 40 分钟内到达。'],
+    ['公告', '历城区新增 2 座超充站规划公示，合计 48 桩，含 480kW 液冷超充 12 桩。'],
     ['安全', '今日全市消防巡检完成率 96%，未发现重大安全隐患。'],
     ['双碳', `本月累计充电 ${fmt(TOTAL.kwh * 30 / 10000, 1)} 万 kWh，折合减碳约 ${fmt(CO2 * 30, 0)} 吨。`],
   ]);
@@ -78,17 +80,17 @@
   /* ============================================================
      地图
      ============================================================ */
-  echarts.registerMap('hangzhou', window.HZ_GEOJSON);
+  echarts.registerMap('jinan', window.CITY_GEOJSON);
   const mapChart = echarts.init(document.getElementById('chart-map'));
   CHARTS.push(mapChart);
 
   const HUB = STATIONS[0];
-  const lineTargets = ['ST010', 'ST013', 'ST016', 'ST023', 'ST024', 'ST008'];
+  const lineTargets = ['ST010', 'ST013', 'ST016', 'ST021', 'ST026', 'ST008'];
   const mapBase = {
     geo: {
-      map: 'hangzhou',
+      map: 'jinan',
       roam: false,
-      zoom: 1.12,
+      zoom: 1.08,
       layoutCenter: ['50%', '54%'],
       layoutSize: '108%',
       label: { show: true, color: 'rgba(150,200,240,.55)', fontSize: 10 },
@@ -203,7 +205,7 @@
   });
 
   /* ---------- 行政区筛选 ---------- */
-  const DISTRICTS = ['全部', '上城区', '拱墅区', '西湖区', '滨江区', '萧山区', '余杭区', '钱塘区'];
+  const DISTRICTS = ['全部', '历下区', '市中区', '槐荫区', '天桥区', '历城区', '章丘区', '长清区'];
   const chipsHost = document.getElementById('dist-chips');
   chipsHost.innerHTML = DISTRICTS.map((d, i) => `<span class="dist-chip${i === 0 ? ' on' : ''}" data-d="${d}">${d}</span>`).join('');
   chipsHost.addEventListener('click', (e) => {
@@ -423,13 +425,13 @@
      告警列表
      ============================================================ */
   const ALERT_POOL = [
-    ['高', 'ST022 天目山站 <b>V03 桩</b> 直流模块过温保护触发，已自动降功率至 60kW，请尽快巡检。'],
-    ['中', 'ST020 富春江畔站 <b>市电接入</b> 波动 ±8%，已切入储能缓冲，预计 15 分钟恢复。'],
-    ['中', 'ST026 拱墅运河站 <b>通信网关</b> 心跳丢失，离线检修计划已同步运维班组。'],
-    ['低', 'ST010 机场 T3 站 <b>充电排队</b> 车辆 6 台，建议引导至 ST017 钱塘装备园站。'],
-    ['低', 'ST004 武林银泰站 <b>V12 桩</b> 枪头归位异常提醒，工单已自动派发。'],
+    ['高', 'ST022 百脉泉公园站 <b>V03 桩</b> 直流模块过温保护触发，已自动降功率至 60kW，请尽快巡检。'],
+    ['中', 'ST020 园博园文旅站 <b>市电接入</b> 波动 ±8%，已切入储能缓冲，预计 15 分钟恢复。'],
+    ['中', 'ST026 莱芜会展中心站 <b>通信网关</b> 心跳丢失，离线检修计划已同步运维班组。'],
+    ['低', 'ST010 遥墙机场 T2 站 <b>充电排队</b> 车辆 6 台，建议引导至 ST013 济南东站枢纽站。'],
+    ['低', 'ST004 恒隆广场站 <b>V12 桩</b> 枪头归位异常提醒，工单已自动派发。'],
     ['高', '全市电网 <b>负荷率 82%</b>，触发有序充电策略，120kW 以上桩动态限流 10%。'],
-    ['中', 'ST013 未来科技城站 <b>储能 SOC</b> 低于 22%，充放策略已切换为保守模式。'],
+    ['中', 'ST013 济南东站枢纽站 <b>储能 SOC</b> 低于 22%，充放策略已切换为保守模式。'],
   ];
   const alertHost = document.getElementById('alert-list');
   function alertItem() {
@@ -448,9 +450,72 @@
     onRecycle: (it) => { it.innerHTML = alertItem(); },
   });
 
-  /* ---------- 负荷数字微跳（活感） ---------- */
+  /* ============================================================
+     实时数据脉动：每 5s 随机微调全量指标，翻牌平滑滚动
+     ============================================================ */
+  const kpiEls = [...document.querySelectorAll('#kpi-grid .val')];
+  const statEls = [...document.querySelectorAll('#stat-strip .v')];
+  const LIVE = { kwh: TOTAL.kwh, orders: TOTAL.orders, income: TOTAL.income, co2: CO2, charging: TOTAL.charging, idle: TOTAL.idle };
+  const CHG_IDLE_SUM = TOTAL.charging + TOTAL.idle;
+
+  function refreshPopIfOpen() {
+    if (!pop.classList.contains('show') || !selectedId) return;
+    const s = STATIONS.find((x) => x.id === selectedId);
+    if (!s) return;
+    document.getElementById('sp-kwh').innerHTML = `${fmt(s.kwh)} <small>kWh</small>`;
+    document.getElementById('sp-orders').innerHTML = `${s.orders} <small>单</small>`;
+    document.getElementById('sp-income').innerHTML = `¥${fmt(s.income)} <small>元</small>`;
+  }
+
   setInterval(() => {
-    const el = document.querySelector('#power-now');
-    el.textContent = `▲ 当前 ${(nowPower + CC.rnd(-0.4, 0.4)).toFixed(1)} MW`;
+    // 1) 站点级微增（离线站不计）
+    STATIONS.forEach((s) => {
+      if (s.status === 'offline') return;
+      s.kwh += CC.rndInt(3, 11);
+      s.income += CC.rndInt(12, 46);
+      if (Math.random() < 0.4) s.orders += 1;
+    });
+    // 2) KPI 汇总翻牌（从当前值滚到新值）
+    const prev = { ...LIVE };
+    LIVE.kwh = STATIONS.reduce((a, s) => a + s.kwh, 0);
+    LIVE.orders = STATIONS.reduce((a, s) => a + s.orders, 0);
+    LIVE.income = STATIONS.reduce((a, s) => a + s.income, 0);
+    LIVE.co2 = +(LIVE.kwh * 0.012).toFixed(1);
+    TOTAL.kwh = LIVE.kwh; TOTAL.orders = LIVE.orders; TOTAL.income = LIVE.income;
+    CC.countUp(kpiEls[0], LIVE.kwh, { from: prev.kwh, duration: 1200 });
+    CC.countUp(kpiEls[1], LIVE.orders, { from: prev.orders, duration: 1200 });
+    CC.countUp(kpiEls[2], LIVE.income, { from: prev.income, duration: 1200 });
+    CC.countUp(kpiEls[3], LIVE.co2, { from: prev.co2, digits: 1, duration: 1200 });
+    // 3) 充电中/空闲微扰（总量守恒）+ 环图联动
+    LIVE.charging = Math.max(240, Math.min(360, LIVE.charging + CC.rndInt(-2, 3)));
+    LIVE.idle = CHG_IDLE_SUM - LIVE.charging;
+    CC.countUp(statEls[3], LIVE.charging, { from: prev.charging, duration: 1000 });
+    CC.countUp(statEls[4], LIVE.idle, { from: prev.idle, duration: 1000 });
+    donut.setOption({
+      series: [{
+        data: [
+          { value: LIVE.charging, name: '充电中', itemStyle: { color: '#37e6ff' } },
+          { value: LIVE.idle, name: '空闲', itemStyle: { color: '#3d8bff' } },
+          { value: TOTAL.fault, name: '故障', itemStyle: { color: '#ff5d7a' } },
+          { value: TOTAL.offline, name: '离线', itemStyle: { color: '#5a7492' } },
+        ],
+      }],
+    });
+    // 4) 负荷/趋势图当前小时点位抖动
+    powerData[nowHour] = +(Math.max(0.8, powerData[nowHour] + CC.rnd(-0.5, 0.6))).toFixed(2);
+    powerChart.setOption({ series: [{ data: powerData }, { data: powerForecast }] });
+    kwhSeries[nowHour] += CC.rndInt(25, 140);
+    orderSeries[nowHour] += CC.rndInt(1, 6);
+    trendChart.setOption({ series: [{ data: kwhSeries }, { data: orderSeries }] });
+    // 5) 浮窗联动刷新
+    refreshPopIfOpen();
+  }, 5000);
+
+  /* 排行榜 10s 重排（站点电量已微增，名次可能互换） */
+  setInterval(renderRank, 10000);
+
+  /* 负荷标签 3s 微跳（活感） */
+  setInterval(() => {
+    document.querySelector('#power-now').textContent = `▲ 当前 ${(nowPower + CC.rnd(-0.4, 0.4)).toFixed(1)} MW`;
   }, 3000);
 })();
