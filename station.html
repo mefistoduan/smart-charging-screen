@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>场站详情大屏 · 智慧充电运营监管平台</title>
+  <meta name="author" content="duanchangpeng@gmail.com">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="scale-screen">
+    <canvas id="fx-canvas"></canvas>
+
+    <header id="hud-header"></header>
+
+    <main class="grid">
+      <!-- ============ 左列 ============ -->
+      <div class="col col-side">
+        <section class="panel" style="height:232px">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">场站档案</div><div class="en">STATION PROFILE</div></div>
+            <div class="deco" id="st-badge-host"></div>
+          </div>
+          <div class="panel-bd">
+            <div class="info-grid" id="info-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel" style="height:252px">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">桩群状态分布</div><div class="en">PILE STATUS</div></div>
+            <div class="deco"><span class="dot"></span><span class="lab">REALTIME</span></div>
+          </div>
+          <div class="panel-bd"><div class="chart" id="chart-st-donut"></div></div>
+        </section>
+
+        <section class="panel" style="flex:1">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">今日功率曲线</div><div class="en">POWER CURVE TODAY</div></div>
+            <div class="deco"><span class="lab" id="st-power-now" style="color:var(--green);font-size:13px"></span></div>
+          </div>
+          <div class="panel-bd"><div class="chart" id="chart-st-power"></div></div>
+        </section>
+      </div>
+
+      <!-- ============ 中列 ============ -->
+      <div class="col col-mid">
+        <div class="stat-strip rise" style="height:96px" id="stat-strip"></div>
+
+        <section class="panel" style="flex:1">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">场站布局实况</div><div class="en">STATION LAYOUT · PV-STORE-CHARGE</div></div>
+            <div class="deco">
+              <span class="st-badge ok">光伏在线 3.2kW</span>
+              <span class="st-badge run">储能 SOC 68%</span>
+            </div>
+          </div>
+          <div class="panel-bd" style="padding:2px 6px">
+            <div class="layout-stage" id="layout-stage"></div>
+            <div class="layout-legend">
+              <span><i style="color:var(--green);background:var(--green)"></i>充电中</span>
+              <span><i style="color:var(--cyan);background:var(--cyan)"></i>空闲</span>
+              <span><i style="color:var(--red);background:var(--red)"></i>故障</span>
+              <span><i style="color:#5a7492;background:#5a7492"></i>离线</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" style="height:238px">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">本站实时订单</div><div class="en">LIVE ORDERS OF THIS STATION</div></div>
+            <div class="deco"><span class="dot"></span><span class="lab">AUTO STREAM</span></div>
+          </div>
+          <div class="panel-bd">
+            <div class="ord-hd" style="grid-template-columns:64px 70px 96px 58px 66px 62px">
+              <span>时间</span><span>桩号</span><span>车牌</span><span style="text-align:right">电量</span><span style="text-align:right">金额</span><span style="text-align:right">状态</span>
+            </div>
+            <div class="scroll-wrap" id="order-scroll">
+              <div class="scroll-inner" id="order-body"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============ 右列 ============ -->
+      <div class="col col-side">
+        <section class="panel" style="height:262px">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">桩位利用率</div><div class="en">UTILIZATION RATE</div></div>
+          </div>
+          <div class="panel-bd">
+            <div class="wb-wrap" id="wb-wrap"></div>
+          </div>
+        </section>
+
+        <section class="panel" style="flex:1">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">充电桩实时监视</div><div class="en">PILE MONITOR · CLICK TO LOCATE</div></div>
+            <div class="deco"><span class="dot"></span><span class="lab" id="pile-count-lab"></span></div>
+          </div>
+          <div class="panel-bd" style="padding:2px 8px">
+            <div class="scroll-wrap" id="pile-scroll">
+              <div class="scroll-inner" id="pile-rows"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" style="height:212px">
+          <div class="panel-hd">
+            <span class="bar"></span>
+            <div><div class="tt">场站事件</div><div class="en">STATION EVENTS</div></div>
+            <div class="deco"><span class="st-badge err" id="evt-high">高危 0</span></div>
+          </div>
+          <div class="panel-bd">
+            <div class="scroll-wrap" id="alert-scroll">
+              <div class="scroll-inner alert-list" id="alert-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer id="hud-ticker"></footer>
+  </div>
+
+  <script src="js/lib/echarts.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/station.js"></script>
+</body>
+</html>
