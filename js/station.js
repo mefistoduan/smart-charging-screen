@@ -17,7 +17,7 @@
 
   /* ---------- 启动 ---------- */
   CC.fitScreen();
-  window.addEventListener('resize', CC.fitScreen);
+  const CHARTS = [];
   CC.buildHeader({
     title: `${st.name} · 场站详情`,
     subtitle: `STATION DETAIL · ${st.id} · ${st.district}`,
@@ -62,7 +62,9 @@
   document.querySelectorAll('#stat-strip .v').forEach((el) => CC.countUp(el, +el.dataset.count, { digits: +el.dataset.d, duration: 1400 }));
 
   /* ---------- 桩状态环图 ---------- */
-  echarts.init(document.getElementById('chart-st-donut')).setOption({
+  const stDonut = echarts.init(document.getElementById('chart-st-donut'));
+  CHARTS.push(stDonut);
+  stDonut.setOption({
     tooltip: { ...CC.TOOLTIP, trigger: 'item', formatter: '{b}: {c} 桩 ({d}%)' },
     legend: { orient: 'vertical', right: 14, top: 'middle', icon: 'diamond', itemWidth: 9, itemHeight: 9, itemGap: 12, textStyle: { color: '#a9c6e4', fontSize: 12 } },
     title: {
@@ -95,6 +97,8 @@
   }
   const stPowerChart = echarts.init(document.getElementById('chart-st-power'));
   const stPowerData = hours.map((_, h) => (h <= nowHour ? stPowerAt(h) : null));
+  CHARTS.push(stPowerChart);
+  window.addEventListener('resize', () => CHARTS.forEach((c) => c.resize()));
   stPowerChart.setOption({
     tooltip: { ...CC.TOOLTIP, trigger: 'axis', valueFormatter: (v) => v == null ? '-' : v + ' kW' },
     grid: { left: 8, right: 14, top: 28, bottom: 4, containLabel: true },
@@ -299,8 +303,7 @@
   }
   for (let i = 0; i < 12; i++) {
     const row = document.createElement('div');
-    row.className = 'ord-row';
-    row.style.gridTemplateColumns = '64px 70px 96px 58px 66px 62px';
+    row.className = 'ord-row st';
     row.innerHTML = orderRow();
     orderBody.appendChild(row);
   }

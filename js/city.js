@@ -24,7 +24,7 @@
 
   /* ---------- 启动 ---------- */
   CC.fitScreen();
-  window.addEventListener('resize', CC.fitScreen);
+  window.addEventListener('resize', () => CHARTS.forEach((c) => c.resize()));
   CC.buildHeader({
     title: '济南市智慧充电运营监管平台',
     subtitle: 'JINAN SMART CHARGING OPERATION SUPERVISORY PLATFORM',

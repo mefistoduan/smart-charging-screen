@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>场站详情大屏 · 智慧充电运营监管平台</title>
   <meta name="author" content="duanchangpeng@gmail.com">
-  <link rel="stylesheet" href="css/style.css?v=jn1">
+  <link rel="stylesheet" href="css/style.css?v=jn2">
 </head>
 <body>
   <div id="scale-screen">
@@ -16,7 +16,7 @@
     <main class="grid">
       <!-- ============ 左列 ============ -->
       <div class="col col-side">
-        <section class="panel" style="height:232px">
+        <section class="panel" style="flex:14.5rem">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">场站档案</div><div class="en">STATION PROFILE</div></div>
@@ -27,7 +27,7 @@
           </div>
         </section>
 
-        <section class="panel" style="height:252px">
+        <section class="panel" style="flex:15.75rem">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">桩群状态分布</div><div class="en">PILE STATUS</div></div>
@@ -48,36 +48,36 @@
 
       <!-- ============ 中列 ============ -->
       <div class="col col-mid">
-        <div class="stat-strip rise" style="height:96px" id="stat-strip"></div>
+        <div class="stat-strip rise" style="height:clamp(5rem,9vh,6.1rem)" id="stat-strip"></div>
 
         <section class="panel" style="flex:1">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">场站布局实况</div><div class="en">STATION LAYOUT · PV-STORE-CHARGE</div></div>
-            <div class="deco">
-              <span class="st-badge ok">光伏在线 3.2kW</span>
-              <span class="st-badge run">储能 SOC 68%</span>
+            <div class="deco" style="flex-wrap:wrap;justify-content:flex-end;max-width:72%">
+              <span class="st-badge ok">光伏 3.2kW</span>
+              <span class="st-badge run">储能 68%</span>
+              <span class="layout-legend">
+                <span><i style="color:var(--green);background:var(--green)"></i>充电中</span>
+                <span><i style="color:var(--cyan);background:var(--cyan)"></i>空闲</span>
+                <span><i style="color:var(--red);background:var(--red)"></i>故障</span>
+                <span><i style="color:#5a7492;background:#5a7492"></i>离线</span>
+              </span>
             </div>
           </div>
           <div class="panel-bd" style="padding:2px 6px">
             <div class="layout-stage" id="layout-stage"></div>
-            <div class="layout-legend">
-              <span><i style="color:var(--green);background:var(--green)"></i>充电中</span>
-              <span><i style="color:var(--cyan);background:var(--cyan)"></i>空闲</span>
-              <span><i style="color:var(--red);background:var(--red)"></i>故障</span>
-              <span><i style="color:#5a7492;background:#5a7492"></i>离线</span>
-            </div>
           </div>
         </section>
 
-        <section class="panel" style="height:238px">
+        <section class="panel" style="flex:14.875rem">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">本站实时订单</div><div class="en">LIVE ORDERS OF THIS STATION</div></div>
             <div class="deco"><span class="dot"></span><span class="lab">AUTO STREAM</span></div>
           </div>
           <div class="panel-bd">
-            <div class="ord-hd" style="grid-template-columns:64px 70px 96px 58px 66px 62px">
+            <div class="ord-hd st">
               <span>时间</span><span>桩号</span><span>车牌</span><span style="text-align:right">电量</span><span style="text-align:right">金额</span><span style="text-align:right">状态</span>
             </div>
             <div class="scroll-wrap" id="order-scroll">
@@ -89,7 +89,7 @@
 
       <!-- ============ 右列 ============ -->
       <div class="col col-side">
-        <section class="panel" style="height:262px">
+        <section class="panel" style="flex:16.375rem">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">桩位利用率</div><div class="en">UTILIZATION RATE</div></div>
@@ -112,7 +112,7 @@
           </div>
         </section>
 
-        <section class="panel" style="height:212px">
+        <section class="panel" style="flex:13.25rem">
           <div class="panel-hd">
             <span class="bar"></span>
             <div><div class="tt">场站事件</div><div class="en">STATION EVENTS</div></div>
@@ -131,8 +131,8 @@
   </div>
 
   <script src="js/lib/echarts.min.js"></script>
-  <script src="js/data.js?v=jn1"></script>
-  <script src="js/common.js?v=jn1"></script>
-  <script src="js/station.js?v=jn1"></script>
+  <script src="js/data.js?v=jn2"></script>
+  <script src="js/common.js?v=jn2"></script>
+  <script src="js/station.js?v=jn2"></script>
 </body>
 </html>

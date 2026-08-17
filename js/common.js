@@ -54,23 +54,10 @@
     requestAnimationFrame(step);
   }
 
-  function currentScale() {
-    const el = document.getElementById('scale-screen');
-    if (!el) return 1;
-    try {
-      const t = getComputedStyle(el).transform;
-      if (!t || t === 'none') return 1;
-      return new DOMMatrixReadOnly(t).a || 1;
-    } catch (e) { return 1; }
-  }
+  function currentScale() { return 1; }
 
-  /* ---------- 1920×1080 等比缩放 ---------- */
-  function fitScreen() {
-    const el = document.getElementById('scale-screen');
-    if (!el) return;
-    const scale = Math.min(innerWidth / 1920, innerHeight / 1080);
-    el.style.transform = `translate(-50%, -50%) scale(${scale})`;
-  }
+  /* ---------- 布局已改为纯 CSS 流式响应，无需 JS 缩放（保留空实现兼容调用） ---------- */
+  function fitScreen() {}
 
   /* ---------- HUD 六边形闪电 Logo（SVG） ---------- */
   const LOGO_SVG = `
@@ -103,7 +90,7 @@
         ${cfg.back ? `<div class="btn-back" id="btn-back">◈ 返回总览</div>` : ''}
         <div class="chip time"><span class="k">TIME</span><span class="v" id="hud-clock">--:--:--</span></div>
         <div class="chip"><span class="k">DATE</span><span class="v" id="hud-date">----</span></div>
-        <div class="chip"><span class="k">ENV</span><span class="v">多云 26℃ · AQI 45 · 电网正常</span></div>
+        <div class="chip env"><span class="k">ENV</span><span class="v">多云 26℃ · AQI 45 · 电网正常</span></div>
       </div></div>
       <div class="core">
         ${LOGO_SVG}
@@ -113,7 +100,7 @@
         </div>
       </div>
       <div class="wing wing-r"><div class="inner">
-        <div class="chip"><span class="k">OPERATOR</span><span class="v">运营调度中心 · SC-01</span></div>
+        <div class="chip operator"><span class="k">OPERATOR</span><span class="v">运营调度中心 · SC-01</span></div>
         <div class="chip contact" title="联系作者">
           ${ENVELOPE_SVG}
           <span class="lab">CONTACT</span><span class="v">${CONTACT}</span>
@@ -203,19 +190,21 @@
     boot.addEventListener('click', () => { clearInterval(timer); boot.classList.add('done'); setTimeout(() => boot.remove(), 600); });
   }
 
-  /* ---------- 粒子网络背景 ---------- */
+  /* ---------- 粒子网络背景（画布尺寸跟随容器） ---------- */
   function plexus() {
     const cv = document.getElementById('fx-canvas');
     if (!cv) return;
     const ctx = cv.getContext('2d');
-    let W, H;
+    let W = 0, H = 0;
     const N = 42, PTS = [];
     function resize() {
-      W = cv.width = 1920; H = cv.height = 1080;
+      W = cv.width = Math.max(1, cv.clientWidth);
+      H = cv.height = Math.max(1, cv.clientHeight);
     }
     resize();
+    window.addEventListener('resize', resize);
     for (let i = 0; i < N; i++) {
-      PTS.push({ x: Math.random() * 1920, y: Math.random() * 1080, vx: rnd(-.12, .12), vy: rnd(-.12, .12), r: rnd(.8, 1.9) });
+      PTS.push({ x: Math.random() * W, y: Math.random() * H, vx: rnd(-.12, .12), vy: rnd(-.12, .12), r: rnd(.8, 1.9) });
     }
     (function draw() {
       ctx.clearRect(0, 0, W, H);
