@@ -287,7 +287,7 @@ footer.ticker .copy a:hover { color: var(--cyan); }
    ============================================================ */
 .wb-wrap { display: flex; align-items: center; height: 100%; gap: 6px; }
 .wb-box {
-  position: relative; width: 10.75rem; height: 10.75rem; border-radius: 50%;
+  position: relative; width: min(9.4rem, 15.5vh); height: min(9.4rem, 15.5vh); border-radius: 50%;
   background: radial-gradient(circle at 50% 40%, rgba(20, 60, 120, .35), rgba(4, 12, 30, .9) 75%);
   border: 2px solid rgba(55, 230, 255, .35);
   box-shadow: 0 0 1.5rem rgba(30, 140, 255, .25), inset 0 0 1.875rem rgba(20, 90, 180, .25);
@@ -306,9 +306,9 @@ footer.ticker .copy a:hover { color: var(--cyan); }
 @keyframes wave-f { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes wave-b { from { transform: translateX(0); } to { transform: translateX(50%); } }
 .wb-pct { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.wb-pct .n { font-family: var(--num-font); font-size: 2.625rem; font-weight: 700; color: #fff; text-shadow: 0 2px 0.625rem rgba(0, 40, 90, .8); }
+.wb-pct .n { font-family: var(--num-font); font-size: 2.1rem; font-weight: 700; color: #fff; text-shadow: 0 2px 0.625rem rgba(0, 40, 90, .8); }
 .wb-pct .t { font-size: 0.688rem; letter-spacing: 2px; color: #a8d8f5; margin-top: 2px; }
-.wb-legend { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; padding-right: 6px; }
+.wb-legend { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-right: 6px; }
 .wb-legend .it { display: flex; align-items: center; gap: 0.562rem; font-size: 0.812rem; }
 .wb-legend .it i { width: 0.562rem; height: 0.562rem; flex: none; transform: rotate(45deg); box-shadow: 0 0 0.5rem currentColor; }
 .wb-legend .it .nm { color: var(--dim); flex: 1; }
@@ -533,9 +533,11 @@ footer.ticker .copy a:hover { color: var(--cyan); }
 .info-it .v.big { font-family: var(--num-font); font-size: 1.5rem; color: #f2faff; font-weight: 700; letter-spacing: 1px; }
 .info-it .v.big small { font-size: 0.688rem; color: var(--dim); font-weight: 400; }
 
-/* 详情页：桩监视行 */
-.pile-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.625rem; height: 7.75rem; margin-bottom: 0.625rem; }
-.pile-row .pile { height: 100%; }
+/* 详情页：桩监视行（高度弹性适配面板） */
+.pile-scroll-hd { flex: none; }
+#pile-scroll .scroll-wrap { height: 100%; }
+.pile-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.625rem; height: clamp(8rem, 14.5vh, 9.5rem); margin-bottom: 0.625rem; }
+.pile-row .pile { height: 100%; justify-content: space-between; }
 
 .st-badge.dim { color: #8fb8dd; border-color: rgba(140, 180, 220, .4); background: rgba(140, 180, 220, .08); }
 
