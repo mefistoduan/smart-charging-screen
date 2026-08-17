@@ -90,9 +90,10 @@
     geo: {
       map: 'jinan',
       roam: false,
-      zoom: 1.08,
-      layoutCenter: ['50%', '54%'],
-      layoutSize: '108%',
+      zoom: 1.0,
+      aspectScale: 0.9,        // 轻微横向展宽，充分利用宽面板
+      layoutCenter: ['50%', '50%'],
+      layoutSize: '100%',      // contain 填满面板高度，不裁剪边缘区县
       label: { show: true, color: 'rgba(150,200,240,.55)', fontSize: 10 },
       itemStyle: {
         areaColor: {
@@ -137,7 +138,7 @@
       coordinateSystem: 'geo',
       name: st.district,
       rippleEffect: { brushType: 'stroke', scale: st.status === 'alarm' ? 4 : 2.6, period: st.status === 'alarm' ? 2 : 4 },
-      symbolSize: st.status === 'offline' ? 8 : 9 + st.piles * 0.34,
+      symbolSize: st.status === 'offline' ? 9 : 11 + st.piles * 0.38,
       itemStyle: { color: ST_STATUS[st.status].color, shadowBlur: 12, shadowColor: ST_STATUS[st.status].color },
       data: [{
         value: [st.lon, st.lat, st.piles],
