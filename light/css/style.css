@@ -119,3 +119,35 @@ footer.ft a { color: var(--blue); text-decoration: none; }
 
 @media (max-width: 1560px) { .metrics { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 1380px) { .logo span { display: none; } nav.nav { width: 11.5rem; } }
+
+/* ============================================================
+   详情页补充
+   ============================================================ */
+.hd .back { font-size: .74rem; color: var(--blue); text-decoration: none; padding: .4rem .9rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--card); }
+.hd .back:hover { background: var(--blue-soft); }
+
+/* 桩位实况网格 */
+.pile-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: .7rem; padding: .65rem .75rem;
+  display: flex; flex-direction: column; gap: .4rem; cursor: pointer; transition: all .2s; min-width: 0;
+}
+.pile-card:hover, .pile-card.sel { border-color: #93c5fd; background: var(--blue-soft); transform: translateY(-2px); }
+.pile-card .r1 { display: flex; align-items: center; gap: .45rem; }
+.pile-card .pid { font-family: var(--num); font-weight: 700; font-size: .86rem; color: var(--t1); }
+.pile-card .pt { font-size: .58rem; color: var(--t3); border: 1px solid var(--line); padding: .04rem .32rem; border-radius: 99px; }
+.pile-card .plate { font-size: .64rem; color: var(--t2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pile-card .m2 { display: flex; align-items: baseline; gap: .5rem; }
+.pile-card .kw { font-family: var(--num); font-size: 1.1rem; font-weight: 800; color: var(--green); }
+.pile-card .kw.idle { color: var(--blue); } .pile-card .kw.off { color: var(--t3); }
+.pile-card .kw small { font-size: .55em; color: var(--t3); font-weight: 400; }
+.pile-card .eta { margin-left: auto; font-size: .62rem; color: var(--t3); }
+.pile-card .eta b { color: var(--blue); }
+.soc { height: .32rem; border-radius: 99px; background: var(--line); overflow: hidden; }
+.soc i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #60a5fa, var(--blue)); transition: width .8s; }
+.soc i.bad { background: linear-gradient(90deg, #fca5a5, var(--red)); }
+.pile-flow { flex: 1; min-height: 0; overflow: hidden; position: relative; display: grid; grid-auto-rows: minmax(6.2rem, auto); grid-template-columns: repeat(4, 1fr); gap: .6rem; align-content: start; }
+.pile-track { position: absolute; left: 0; right: 0; top: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; will-change: transform; }
+.pile-track .pile-card { height: 6.2rem; }
+.info-rows { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; gap: .4rem; padding: 0 .6rem; }
+.info-r { display: flex; justify-content: space-between; font-size: .76rem; color: var(--t2); border-bottom: 1px dashed var(--line); padding: .35rem 0; }
+.info-r b { color: var(--t1); font-weight: 600; }

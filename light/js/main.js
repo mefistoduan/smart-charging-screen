@@ -71,7 +71,7 @@
       itemStyle: { areaColor: '#eff4ff', borderColor: '#bfdbfe', borderWidth: 1.2, shadowColor: 'rgba(37,99,235,.12)', shadowBlur: 12, shadowOffsetY: 6 },
       emphasis: { label: { color: '#2563eb' }, itemStyle: { areaColor: '#dbeafe' } },
     },
-    tooltip: { ...TIP, trigger: 'item', formatter: (p) => p.data.st ? `<b>${p.data.st.name}</b><br/>${p.data.st.district} · ${p.data.st.piles} 桩<br/>今日 ${fmt(p.data.st.kwh)} kWh` : p.name },
+    tooltip: { ...TIP, trigger: 'item', formatter: (p) => p.data.st ? `<b>${p.data.st.name}</b><br/>${p.data.st.district} · ${p.data.st.piles} 桩<br/>今日 ${fmt(p.data.st.kwh)} kWh<br/><i style="color:#94a3b8">点击进入场站详情 →</i>` : p.name },
     series: STATIONS.map((st) => ({
       type: 'effectScatter', coordinateSystem: 'geo', zlevel: 2,
       symbolSize: st.status === 'offline' ? 7 : 8 + st.piles * .3,
@@ -79,6 +79,10 @@
       rippleEffect: { brushType: 'stroke', scale: 2.2, period: 4 },
       data: [{ value: [st.lon, st.lat], name: st.name, st }],
     })),
+    });
+    /* 点击站点下钻详情 */
+    map.on('click', (p) => {
+      if (p.data && p.data.st) location.href = 'station.html?id=' + p.data.st.id;
     });
   });
 

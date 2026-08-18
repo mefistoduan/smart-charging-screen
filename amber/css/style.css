@@ -172,3 +172,40 @@ footer.foot .copy a { color: var(--gold); text-decoration: none; }
   .tt p { display: none; }
   .mail { font-size: .74rem; }
 }
+
+/* ============================================================
+   详情页补充
+   ============================================================ */
+.btn-back { font-size: .78rem; color: var(--gold); text-decoration: none; padding: .5rem .95rem; border: 1px solid var(--line-hi); white-space: nowrap; background: rgba(255,181,46,.06); }
+.btn-back:hover { background: rgba(255,181,46,.14); }
+
+.lay-stage { flex: 1; min-height: 0; position: relative; }
+
+/* 桩监视卡（金色版） */
+.p-grid { position: relative; height: 100%; overflow: hidden; }
+.p-grid::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.6rem; background: linear-gradient(180deg, transparent, rgba(14,9,3,.9)); z-index: 2; }
+.p-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; margin-bottom: .6rem; }
+.p-card {
+  border: 1px solid var(--line); background: linear-gradient(160deg, rgba(45,31,10,.55), rgba(20,13,4,.45));
+  border-radius: .45rem; padding: .55rem .7rem; display: flex; flex-direction: column; gap: .35rem;
+  cursor: pointer; transition: border-color .2s, transform .2s;
+}
+.p-card:hover, .p-card.sel { border-color: var(--line-hi); transform: translateY(-2px); }
+.p-card .r1 { display: flex; align-items: center; gap: .45rem; }
+.p-card .pid { font-family: var(--num); font-weight: 700; font-size: .88rem; color: var(--gold-hi); }
+.p-card .pt { font-size: .58rem; color: var(--dim); border: 1px solid var(--line); padding: .05rem .3rem; }
+.p-card .plate { font-size: .64rem; color: var(--dim); font-family: var(--num); letter-spacing: .05em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.p-card .m2 { display: flex; align-items: baseline; gap: .5rem; }
+.p-card .kw { font-family: var(--num); font-size: 1.15rem; font-weight: 800; color: #b7e8c4; }
+.p-card .kw.idle { color: #d9b06a; } .p-card .kw.off { color: #6b5a3e; }
+.p-card .kw small { font-size: .55em; color: var(--dim); font-weight: 400; }
+.p-card .eta { margin-left: auto; font-size: .62rem; color: var(--dim); }
+.p-card .eta b { color: var(--gold-hi); font-family: var(--num); }
+.soc { height: .35rem; background: rgba(255,181,46,.08); border-radius: 99px; overflow: hidden; }
+.soc i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); box-shadow: 0 0 .4rem rgba(255,181,46,.5); transition: width .8s; }
+.soc i.bad { background: linear-gradient(90deg, #8a2a2a, var(--red)); box-shadow: 0 0 .4rem rgba(255,93,93,.5); }
+.badge-s { font-size: .58rem; padding: .08rem .45rem; border-radius: 99px; border: 1px solid; margin-left: auto; }
+.badge-s.run { color: #b7e8c4; border-color: rgba(87,217,124,.5); }
+.badge-s.idle { color: var(--gold); border-color: var(--line-hi); }
+.badge-s.err { color: var(--red); border-color: rgba(255,93,93,.5); animation: bl 1.4s infinite; }
+.badge-s.off { color: var(--dim-gold); border-color: var(--line); }

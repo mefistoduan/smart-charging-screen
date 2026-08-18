@@ -98,7 +98,7 @@
       },
       emphasis: { label: { color: '#7dffc4' }, itemStyle: { areaColor: 'rgba(23,110,74,.92)' } },
     },
-    tooltip: { ...TIP, trigger: 'item', formatter: (p) => p.data.st ? `<b style="color:#7dffc4">${p.data.st.name}</b><br/>${p.data.st.district} · ${p.data.st.piles} 桩<br/>今日 ${fmt(p.data.st.kwh)} kWh · 减碳 ${(p.data.st.kwh * .012).toFixed(1)}t` : p.name },
+    tooltip: { ...TIP, trigger: 'item', formatter: (p) => p.data.st ? `<b style="color:#7dffc4">${p.data.st.name}</b><br/>${p.data.st.district} · ${p.data.st.piles} 桩<br/>今日 ${fmt(p.data.st.kwh)} kWh · 减碳 ${(p.data.st.kwh * .012).toFixed(1)}t<br/><i style="color:#6fa389">点击进入场站详情 →</i>` : p.name },
     series: [
       ...STATIONS.map((st) => ({
         type: 'effectScatter', coordinateSystem: 'geo', zlevel: 2,
@@ -115,6 +115,10 @@
           .filter((t) => t && HUB)
           .map((t) => ({ coords: [[HUB.lon, HUB.lat], [t.lon, t.lat]] })) },
     ],
+    });
+    /* 点击站点下钻详情 */
+    map.on('click', (p) => {
+      if (p.data && p.data.st) location.href = 'station.html?id=' + p.data.st.id;
     });
   });
 

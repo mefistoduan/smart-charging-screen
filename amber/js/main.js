@@ -83,7 +83,7 @@
       trigger: 'item', backgroundColor: 'rgba(20,13,4,.95)', borderColor: 'rgba(255,181,46,.5)',
       textStyle: { color: '#f2e6cc', fontSize: 12 },
       formatter: (p) => p.data.st
-        ? `<b style="color:#ffd98a">${p.data.st.name}</b><br/>${p.data.st.district} · 桩 ${p.data.st.piles}（快充 ${p.data.st.fast}）<br/>今日 ${fmt(p.data.st.kwh)} kWh · 利用率 ${p.data.st.util}%`
+        ? `<b style="color:#ffd98a">${p.data.st.name}</b><br/>${p.data.st.district} · 桩 ${p.data.st.piles}（快充 ${p.data.st.fast}）<br/>今日 ${fmt(p.data.st.kwh)} kWh · 利用率 ${p.data.st.util}%<br/><i style="color:#a08a5e">点击进入场站详情 →</i>`
         : p.name,
     },
     series: [
@@ -102,6 +102,10 @@
           .filter((t) => t && HUB)
           .map((t) => ({ coords: [[HUB.lon, HUB.lat], [t.lon, t.lat]] })) },
     ],
+    });
+    /* 点击站点下钻详情 */
+    map.on('click', (p) => {
+      if (p.data && p.data.st) location.href = 'station.html?id=' + p.data.st.id;
     });
   });
 
