@@ -1,0 +1,143 @@
+/* ============================================================
+   ECO · 青绿生态 —— 深绿底 + 荧光绿 + 圆角生态舱
+   ============================================================ */
+:root {
+  --bg0: #04120c; --bg1: #082017; --bg2: #0b2b1f;
+  --gr: #3ddc97; --gr-hi: #7dffc4; --gr-deep: #17915f;
+  --cy: #35d0ba; --am: #ffd166; --rd: #ff6b6b;
+  --text: #d9f5e7; --dim: #6fa389;
+  --line: rgba(61, 220, 151, .18); --line-hi: rgba(61, 220, 151, .5);
+  --num: 'Bahnschrift', 'Segoe UI', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: clamp(9.5px, .833vw, 17px); }
+html, body { width: 100%; height: 100%; overflow: auto; background: var(--bg0); color: var(--text); font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; -webkit-font-smoothing: antialiased; }
+
+#eco {
+  width: 100%; min-width: 75rem; height: 100vh; min-height: 42rem;
+  display: flex; flex-direction: column; position: relative; overflow: hidden;
+  background:
+    radial-gradient(44vw 24vw at 50% -4%, rgba(61, 220, 151, .08), transparent 60%),
+    radial-gradient(36vw 30vw at 0% 110%, rgba(53, 208, 186, .07), transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg0));
+}
+#eco::before { /* 叶脉纹理 */
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(circle at 15% 30%, rgba(61, 220, 151, .05) 0 2px, transparent 3px) 0 0 / 90px 90px,
+    radial-gradient(circle at 70% 80%, rgba(61, 220, 151, .04) 0 2px, transparent 3px) 0 0 / 130px 130px;
+}
+
+/* ---------- 顶栏 ---------- */
+header.cr {
+  position: relative; z-index: 2; flex: none; height: 4.4rem;
+  display: flex; align-items: center; gap: 1.4rem; padding: 0 1.4rem;
+  background: linear-gradient(180deg, rgba(10, 42, 29, .85), rgba(4, 18, 12, .3));
+  border-bottom: 1px solid var(--line);
+}
+header.cr .lf { display: flex; align-items: center; gap: .8rem; }
+.leaf { width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 0 .6rem rgba(61, 220, 151, .5)); animation: breathe 4s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.06); } }
+header.cr h1 { font-size: 1.35rem; letter-spacing: .24em; color: #eafff4; font-weight: 800; white-space: nowrap; }
+header.cr p { font-family: var(--num); font-size: .58rem; letter-spacing: .22em; color: var(--dim); margin-top: .2rem; }
+
+header.cr .mid { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+.flow { font-size: .74rem; color: var(--text); padding: .42rem .8rem; border: 1px solid var(--line); border-radius: 99px; background: rgba(61, 220, 151, .05); white-space: nowrap; }
+.flow b { font-family: var(--num); color: var(--gr-hi); font-size: .95rem; }
+.flow.pv b { color: var(--am); } .flow.st b { color: var(--cy); }
+.flow-line { width: 2rem; height: 1px; background: var(--line-hi); position: relative; overflow: hidden; }
+.flow-line i { position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: var(--gr); animation: flowmove 1.6s linear infinite; box-shadow: 0 0 6px var(--gr); }
+@keyframes flowmove { from { left: -40%; } to { left: 100%; } }
+
+header.cr .rt { display: flex; align-items: center; gap: .7rem; margin-left: 1rem; }
+.clock { font-family: var(--num); font-size: 1.15rem; color: var(--gr-hi); letter-spacing: .08em; text-shadow: 0 0 .6rem rgba(61, 220, 151, .4); }
+.mail { font-family: var(--num); font-size: .78rem; color: #04231a; font-weight: 700; text-decoration: none; padding: .45rem .95rem; border-radius: 99px; background: linear-gradient(90deg, var(--gr), #7dffc4); white-space: nowrap; box-shadow: 0 0 1.1rem rgba(61, 220, 151, .35); }
+.gohome { font-size: .76rem; color: var(--gr); text-decoration: none; padding: .45rem .85rem; border: 1px solid var(--line-hi); border-radius: 99px; white-space: nowrap; }
+.gohome:hover { background: rgba(61, 220, 151, .1); }
+
+/* ---------- 三列 ---------- */
+main.cols { position: relative; z-index: 2; flex: 1; min-height: 0; display: flex; gap: .9rem; padding: .9rem 1.1rem .5rem; }
+.col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .9rem; }
+.col.mid { flex: 1.35; }
+
+.pod {
+  position: relative; display: flex; flex-direction: column; min-height: 0;
+  background: linear-gradient(170deg, rgba(13, 48, 34, .55), rgba(6, 24, 16, .55));
+  border: 1px solid var(--line); border-radius: .9rem;
+  padding: .75rem .95rem .85rem;
+  animation: pod-in .65s cubic-bezier(.2, .7, .3, 1) both;
+}
+.pod:nth-child(2) { animation-delay: .07s; } .pod:nth-child(3) { animation-delay: .14s; }
+@keyframes pod-in { from { opacity: 0; transform: translateY(.8rem) scale(.985); } }
+.pod h2 { display: flex; align-items: center; gap: .5rem; font-size: .84rem; letter-spacing: .14em; color: #eafff4; font-weight: 700; padding-bottom: .5rem; margin-bottom: .55rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.pod h2 .dot { width: .45rem; height: .45rem; border-radius: 50%; background: var(--gr); box-shadow: 0 0 .5rem var(--gr); animation: bl 2s infinite; flex: none; }
+@keyframes bl { 50% { opacity: .3; } }
+.pod .chart { flex: 1; min-height: 0; }
+.pod.grow { flex: 1; }
+.pod.map { flex: 1.9; }
+.pod.flowpod { flex: 1; }
+
+/* 碳足迹环 */
+.co2 { flex: 1; min-height: 0; display: flex; align-items: center; gap: 1.1rem; }
+.ring { position: relative; width: 9.5rem; height: 9.5rem; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .bgc { fill: none; stroke: rgba(61, 220, 151, .12); stroke-width: 8; }
+.ring .fgc { fill: none; stroke: var(--gr); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset 1.8s cubic-bezier(.25, .8, .3, 1); filter: drop-shadow(0 0 .5rem rgba(61, 220, 151, .6)); }
+.ring .num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring .num b { font-family: var(--num); font-size: 1.9rem; color: var(--gr-hi); }
+.ring .num span { font-size: .66rem; color: var(--dim); letter-spacing: .2em; margin-top: .15rem; }
+.facts { flex: 1; display: flex; flex-direction: column; gap: .55rem; }
+.fact { display: flex; align-items: center; gap: .55rem; font-size: .74rem; color: var(--text); }
+.fact .ic { width: 1.6rem; height: 1.6rem; border-radius: .45rem; background: rgba(61, 220, 151, .1); display: flex; align-items: center; justify-content: center; font-size: .85rem; flex: none; }
+.fact b { font-family: var(--num); color: var(--gr-hi); font-size: .95rem; }
+.fact span { color: var(--dim); font-size: .68rem; margin-left: auto; text-align: right; }
+
+/* 生态榜 */
+.eco-list { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: space-evenly; gap: .4rem; overflow: hidden; }
+.e-it { display: flex; align-items: center; gap: .6rem; font-size: .74rem; padding: .3rem .45rem; border-radius: .5rem; transition: background .2s; }
+.e-it:hover { background: rgba(61, 220, 151, .07); }
+.e-rank { width: 1.35rem; height: 1.35rem; border-radius: 50% 50% 50% 4px; background: rgba(61, 220, 151, .15); color: var(--gr-hi); display: flex; align-items: center; justify-content: center; font-family: var(--num); font-weight: 700; font-size: .7rem; flex: none; }
+.e-it:nth-child(1) .e-rank { background: var(--gr); color: #04231a; }
+.e-nm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.e-leaf { font-size: .62rem; color: var(--gr); white-space: nowrap; }
+.e-v { font-family: var(--num); color: var(--gr-hi); font-weight: 600; white-space: nowrap; }
+
+/* 地图 */
+.map-w { flex: 1; min-height: 0; position: relative; }
+.eco-tag { flex: none; padding-top: .45rem; font-size: .68rem; color: var(--dim); text-align: center; letter-spacing: .1em; }
+.eco-tag b { color: var(--gr-hi); }
+
+/* 事件 */
+.ev-list { flex: 1; min-height: 0; overflow: hidden; position: relative; }
+.ev-list::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5rem; background: linear-gradient(180deg, transparent, rgba(4, 18, 12, .9)); }
+.ev { display: flex; gap: .5rem; padding: .4rem 0; font-size: .73rem; border-bottom: 1px dashed rgba(61, 220, 151, .1); align-items: flex-start; }
+.ev .t { font-family: var(--num); color: var(--dim); flex: none; }
+.ev .lv { flex: none; font-size: .62rem; padding: .05rem .4rem; border-radius: 99px; border: 1px solid; }
+.ev .lv.h { color: var(--rd); border-color: rgba(255, 107, 107, .5); }
+.ev .lv.m { color: var(--am); border-color: rgba(255, 209, 102, .5); }
+.ev .lv.s { color: var(--gr); border-color: var(--line-hi); }
+.ev .x { color: var(--text); line-height: 1.5; }
+.ev .x b { color: var(--gr-hi); font-weight: 500; }
+
+/* ---------- 底部 ---------- */
+footer.fm {
+  position: relative; z-index: 2; flex: none; height: 2.5rem;
+  display: flex; align-items: center; gap: 1.4rem; padding: 0 1.4rem;
+  border-top: 1px solid var(--line); background: rgba(8, 32, 23, .6);
+}
+footer.fm .l { display: flex; align-items: center; gap: .5rem; font-size: .7rem; color: var(--dim); }
+footer.fm .l i { width: .45rem; height: .45rem; border-radius: 50%; background: var(--gr); box-shadow: 0 0 .5rem var(--gr); animation: bl 1.6s infinite; }
+footer.fm .m { flex: 1; display: flex; align-items: center; gap: .7rem; font-size: .72rem; color: var(--dim); }
+footer.fm .m b { font-family: var(--num); color: var(--gr-hi); }
+.neu-bar { flex: 1; max-width: 26rem; height: .4rem; border-radius: 99px; background: rgba(61, 220, 151, .12); overflow: hidden; }
+.neu-bar span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--gr-deep), var(--gr), var(--gr-hi)); box-shadow: 0 0 .5rem rgba(61, 220, 151, .5); transition: width 1.5s cubic-bezier(.25, .8, .3, 1); }
+footer.fm .r { font-size: .66rem; color: var(--dim); }
+footer.fm .r a { color: var(--gr); text-decoration: none; }
+
+@media (max-width: 1560px) {
+  header.cr .mid .flow-line { width: 1rem; }
+  header.cr p { display: none; }
+}
+@media (max-width: 1380px) {
+  .flow { display: none; } .flow-line { display: none; }
+}

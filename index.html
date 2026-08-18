@@ -3,149 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>济南市智慧充电运营监管平台 · 全市总览</title>
+  <title>智慧充电站大屏 · 风格展厅 | Smart Charging Gallery</title>
   <meta name="author" content="duanchangpeng@gmail.com">
-  <link rel="stylesheet" href="css/style.css?v=jn7">
+  <link rel="stylesheet" href="css/gallery.css?v=g1">
 </head>
 <body>
-  <div id="scale-screen">
-    <canvas id="fx-canvas"></canvas>
-
-    <header id="hud-header"></header>
-
-    <main class="grid">
-      <!-- ============ 左列 ============ -->
-      <div class="col col-side">
-        <section class="panel" style="flex:18.5rem">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">运营总览</div><div class="en">OPERATION OVERVIEW</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab">REALTIME</span></div>
-          </div>
-          <div class="panel-bd"><div class="kpi-grid" id="kpi-grid"></div></div>
-        </section>
-
-        <section class="panel" style="flex:18.5rem">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">充电桩状态分布</div><div class="en">PILE STATUS DISTRIBUTION</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab" id="pile-total-lab">-- PILES</span></div>
-          </div>
-          <div class="panel-bd"><div class="chart" id="chart-donut"></div></div>
-        </section>
-
-        <section class="panel" style="flex:1">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">全市实时负荷功率</div><div class="en">CITY REALTIME POWER LOAD</div></div>
-            <div class="deco"><span class="lab" id="power-now" style="color:var(--green);font-size:13px"></span></div>
-          </div>
-          <div class="panel-bd"><div class="chart" id="chart-power"></div></div>
-        </section>
+  <div id="gallery">
+    <header class="g-hd">
+      <div class="g-brand">
+        <svg viewBox="0 0 40 40">
+          <defs><linearGradient id="gg" x1="0" y1="0" x2="40" y2="40">
+            <stop offset="0" stop-color="#37e6ff"/><stop offset="1" stop-color="#3ddc97"/>
+          </linearGradient></defs>
+          <rect x="3" y="3" width="34" height="34" rx="9" fill="none" stroke="url(#gg)" stroke-width="2.4"/>
+          <path d="M22.5 11 15 21.2h4.2L17 29l8.5-10.6h-4.6z" fill="url(#gg)"/>
+        </svg>
+        <div>
+          <h1>智慧充电站大屏 · 风格展厅</h1>
+          <p>SMART CHARGING DASHBOARD GALLERY · JINAN · 4 STYLES</p>
+        </div>
       </div>
-
-      <!-- ============ 中列 ============ -->
-      <div class="col col-mid">
-        <div class="stat-strip rise" style="height:clamp(4.2rem,6.5vh,5rem)" id="stat-strip"></div>
-
-        <section class="panel map-panel" style="flex:7 1 0">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">全市充电站点分布</div><div class="en">CITY-WIDE STATION DISTRIBUTION · GEO-NET</div></div>
-            <div class="deco">
-              <div class="map-hd-tools" id="dist-chips"></div>
-            </div>
-          </div>
-          <div class="panel-bd">
-            <div class="chart" id="chart-map"></div>
-            <div class="map-net-tag"><i></i><span id="map-nodes-lab">GEO-NET LINKED</span></div>
-            <div class="map-legend">
-              <div class="it"><i style="color:var(--cyan);background:var(--cyan)"></i>正常运行</div>
-              <div class="it"><i style="color:var(--amber);background:var(--amber)"></i>高负荷运转</div>
-              <div class="it"><i style="color:var(--red);background:var(--red)"></i>故障告警</div>
-              <div class="it"><i style="color:#5a7492;background:#5a7492"></i>离线检修</div>
-            </div>
-            <!-- 站点详情浮窗 -->
-            <div class="st-pop" id="st-pop">
-              <span class="close" id="st-pop-close">✕</span>
-              <h4 id="sp-name"></h4>
-              <div class="addr" id="sp-addr"></div>
-              <div class="rows">
-                <div class="c"><span class="k">充电桩数</span><span class="v" id="sp-piles"></span></div>
-                <div class="c"><span class="k">今日充电量</span><span class="v" id="sp-kwh"></span></div>
-                <div class="c"><span class="k">今日订单</span><span class="v" id="sp-orders"></span></div>
-                <div class="c"><span class="k">今日收入</span><span class="v" id="sp-income"></span></div>
-                <div class="c"><span class="k">桩位利用率</span><span class="v" id="sp-util"></span></div>
-                <div class="c"><span class="k">实时状态</span><span class="v" id="sp-status" style="font-size:13px"></span></div>
-              </div>
-              <div class="go" id="sp-go">进入场站详情大屏 →</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" style="flex:3 1 0">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">24 小时充电量与订单趋势</div><div class="en">24H ENERGY &amp; ORDER TREND</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab">TODAY</span></div>
-          </div>
-          <div class="panel-bd"><div class="chart" id="chart-24h"></div></div>
-        </section>
+      <div class="g-info">
+        <span class="live"><i></i>所有预览均为实时渲染</span>
+        <a class="mail" href="mailto:duanchangpeng@gmail.com">✉ duanchangpeng@gmail.com</a>
       </div>
+    </header>
 
-      <!-- ============ 右列 ============ -->
-      <div class="col col-side">
-        <section class="panel" style="flex:18.5rem">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">站点充电量排行</div><div class="en">STATION ENERGY RANKING · TOP8</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab">LIVE</span></div>
-          </div>
-          <div class="panel-bd"><div class="rank-list" id="rank-list"></div></div>
-        </section>
-
-        <section class="panel" style="flex:1">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">实时订单流水</div><div class="en">LIVE ORDER STREAM</div></div>
-            <div class="deco"><span class="dot"></span><span class="lab" id="order-rate">≈ 9 单/分</span></div>
-          </div>
-          <div class="panel-bd">
-            <div class="ord-hd">
-              <span>时间</span><span>站点</span><span>桩号</span><span style="text-align:right">电量</span><span style="text-align:right">金额</span><span style="text-align:right">状态</span>
-            </div>
-            <div class="scroll-wrap" id="order-scroll">
-              <div class="scroll-inner" id="order-body"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" style="flex:15.25rem">
-          <div class="panel-hd">
-            <span class="bar"></span>
-            <div><div class="tt">告警监控</div><div class="en">EXCEPTION MONITORING</div></div>
-            <div class="deco">
-              <span class="st-badge err">高危 1</span>
-              <span class="st-badge warn">预警 2</span>
-              <span class="st-badge run">提示 1</span>
-            </div>
-          </div>
-          <div class="panel-bd">
-            <div class="scroll-wrap" id="alert-scroll" style="padding-top:2px">
-              <div class="scroll-inner alert-list" id="alert-list"></div>
-            </div>
-          </div>
-        </section>
-      </div>
+    <main class="g-grid">
+      <!-- 卡片由 JS 生成 -->
     </main>
 
-    <footer id="hud-ticker"></footer>
+    <footer class="g-ft">
+      <span>每套大屏均为纯 H5 静态实现 · 数据模拟 · 5 秒实时脉动 · 响应式适配</span>
+      <span>© 2026 · Designed by <a href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a></span>
+    </footer>
   </div>
 
-  <script src="js/lib/echarts.min.js"></script>
-  <script src="js/map-jinan.js?v=jn7"></script>
-  <script src="js/data.js?v=jn7"></script>
-  <script src="js/common.js?v=jn7"></script>
-  <script src="js/city.js?v=jn7"></script>
+  <script src="js/gallery.js?v=g1"></script>
 </body>
 </html>

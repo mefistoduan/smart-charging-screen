@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绿色能源 · 光储充生态网络大屏 | 济南</title>
+  <meta name="author" content="duanchangpeng@gmail.com">
+  <link rel="stylesheet" href="css/style.css?v=ec4">
+</head>
+<body>
+  <div id="eco">
+    <!-- ===== 顶栏 ===== -->
+    <header class="cr">
+      <div class="lf">
+        <svg class="leaf" viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="20" fill="none" stroke="#3ddc97" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <path d="M22 8c8 4 12 10 12 16 0 7-6 12-12 12S10 31 10 24c0-4 2-7 5-9 0 5 3 8 7 9-1-6 0-12 0-16z" fill="#3ddc97" opacity=".9"/>
+        </svg>
+        <div>
+          <h1>绿色能源 · 光储充生态网络</h1>
+          <p>GREEN ENERGY · PV-STORAGE-CHARGING ECO GRID · JINAN</p>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="flow pv">☀ 光伏 <b id="pv-kw">3.2</b> kW</div>
+        <div class="flow-line"><i></i></div>
+        <div class="flow st">▣ 储能 <b id="es-soc">68</b>%</div>
+        <div class="flow-line"><i></i></div>
+        <div class="flow ch">⚡ 充电 <b id="ch-kw">--</b> kW</div>
+      </div>
+      <div class="rt">
+        <span class="clock" id="clk">--:--:--</span>
+        <a class="mail" href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a>
+        <a class="gohome" href="../index.html">▦ 展厅</a>
+      </div>
+    </header>
+
+    <!-- ===== 三列 ===== -->
+    <main class="cols">
+      <!-- 左：生态指标 -->
+      <div class="col">
+        <section class="pod tall">
+          <h2><i class="dot"></i>碳足迹 · 减碳成效</h2>
+          <div class="co2">
+            <div class="ring" id="co2-ring">
+              <svg viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="52" class="bgc"/>
+                <circle cx="60" cy="60" r="52" class="fgc" id="co2-arc"/>
+              </svg>
+              <div class="num"><b id="co2-n">0</b><span>吨</span></div>
+            </div>
+            <div class="facts" id="co2-facts"></div>
+          </div>
+        </section>
+        <section class="pod">
+          <h2><i class="dot"></i>绿电构成 · TODAY</h2>
+          <div class="chart" id="green"></div>
+        </section>
+        <section class="pod grow">
+          <h2><i class="dot"></i>站点生态榜</h2>
+          <div class="eco-list" id="eco-list"></div>
+        </section>
+      </div>
+
+      <!-- 中：地图 + 能量流 -->
+      <div class="col mid">
+        <section class="pod map">
+          <h2><i class="dot"></i>生态站点分布 · ECO MAP</h2>
+          <div class="map-w"><div class="chart" id="map"></div></div>
+          <div class="eco-tag">光伏车棚覆盖率 <b>62%</b> · 储能配置 <b>18 站</b></div>
+        </section>
+        <section class="pod flowpod">
+          <h2><i class="dot"></i>光储充能量流 · REALTIME</h2>
+          <div class="chart" id="sankey"></div>
+        </section>
+      </div>
+
+      <!-- 右：运营 -->
+      <div class="col">
+        <section class="pod">
+          <h2><i class="dot"></i>桩群状态</h2>
+          <div class="chart" id="piles"></div>
+        </section>
+        <section class="pod">
+          <h2><i class="dot"></i>24H 绿色负荷</h2>
+          <div class="chart" id="load"></div>
+        </section>
+        <section class="pod grow">
+          <h2><i class="dot"></i>生态工单 · 事件</h2>
+          <div class="ev-list" id="events"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ===== 底部 ===== -->
+    <footer class="fm">
+      <div class="l"><i></i>LIVE · 数据每 5 秒更新</div>
+      <div class="m">碳中和目标进度 <b id="neu-p">42%</b><span class="neu-bar"><span id="neu-fi" style="width:42%"></span></span></div>
+      <div class="r">© 2026 ECO GRID · <a href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a></div>
+    </footer>
+  </div>
+
+  <script src="../assets/echarts.min.js"></script>
+  <script src="../assets/map-jinan.js"></script>
+  <script src="../assets/data.js"></script>
+  <script src="js/main.js?v=ec4"></script>
+</body>
+</html>

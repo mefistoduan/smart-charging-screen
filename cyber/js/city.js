@@ -28,6 +28,7 @@
   CC.buildHeader({
     title: '济南市智慧充电运营监管平台',
     subtitle: 'JINAN SMART CHARGING OPERATION SUPERVISORY PLATFORM',
+    home: true,
   });
   CC.decoratePanels();
   CC.playBoot('智慧充电运营监管平台');

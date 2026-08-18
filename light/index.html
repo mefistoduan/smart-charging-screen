@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智慧充电管理平台 · 济南 | 极简视界</title>
+  <meta name="author" content="duanchangpeng@gmail.com">
+  <link rel="stylesheet" href="css/style.css?v=li2">
+</head>
+<body>
+  <div id="app">
+    <!-- ===== 侧导航 ===== -->
+    <nav class="nav">
+      <div class="logo">
+        <svg viewBox="0 0 36 36"><rect x="3" y="3" width="30" height="30" rx="9" fill="#2563eb"/>
+        <path d="M20 10 13 20h4.4L15.6 26l7.4-10.4h-4.6z" fill="#fff"/></svg>
+        <div><b>智慧充电</b><span>济南 · 运营平台</span></div>
+      </div>
+      <div class="tabs">
+        <a class="tab on" href="javascript:;">▤ 总览</a>
+        <a class="tab" href="javascript:;">◫ 场站</a>
+        <a class="tab" href="javascript:;">⚡ 桩群</a>
+        <a class="tab" href="javascript:;">◎ 订单</a>
+        <a class="tab" href="javascript:;">⚑ 告警</a>
+      </div>
+      <div class="nav-foot">
+        <div class="user">
+          <span class="avt">运</span>
+          <div><b>运营调度中心</b><span>SC-01 值班席</span></div>
+        </div>
+        <a class="mail" href="mailto:duanchangpeng@gmail.com">✉ duanchangpeng@gmail.com</a>
+        <a class="home" href="../index.html">▦ 返回展厅</a>
+      </div>
+    </nav>
+
+    <!-- ===== 主区 ===== -->
+    <main class="main">
+      <header class="hd">
+        <div>
+          <h1>运营总览 <span>Operations Overview</span></h1>
+          <p>数据每 5 秒自动刷新 · 最后更新 <em id="upd">--:--:--</em></p>
+        </div>
+        <div class="filters" id="filters">
+          <span class="f on">今日</span><span class="f">本周</span><span class="f">本月</span>
+        </div>
+      </header>
+
+      <!-- 指标卡行 -->
+      <section class="metrics" id="metrics"></section>
+
+      <!-- 网格主体 -->
+      <section class="grid">
+        <div class="card span2 row2 map-card">
+          <div class="c-hd"><b>全市站点分布</b><span class="pill">26 站点 · 实时</span></div>
+          <div class="c-bd"><div class="chart" id="map"></div></div>
+        </div>
+        <div class="card trend-card">
+          <div class="c-hd"><b>24h 充电趋势</b><span class="pill blue">kWh / 单</span></div>
+          <div class="c-bd"><div class="chart" id="trend"></div></div>
+        </div>
+        <div class="card donut-card">
+          <div class="c-hd"><b>桩群状态</b><span class="pill">502 桩</span></div>
+          <div class="c-bd"><div class="chart" id="donut"></div></div>
+        </div>
+        <div class="card rank-card">
+          <div class="c-hd"><b>站点电量 TOP5</b></div>
+          <div class="c-bd"><div class="rank" id="rank"></div></div>
+        </div>
+        <div class="card span2 order-card">
+          <div class="c-hd"><b>最新订单</b><span class="pill green">实时流入</span></div>
+          <div class="c-bd">
+            <div class="tb-hd"><span>时间</span><span>站点</span><span>桩号</span><span>电量</span><span>金额</span><span>状态</span></div>
+            <div class="tb-scroll"><div class="tb-in" id="orders"></div></div>
+          </div>
+        </div>
+        <div class="card bar-card">
+          <div class="c-hd"><b>区县电量对比</b></div>
+          <div class="c-bd"><div class="chart" id="distbar"></div></div>
+        </div>
+      </section>
+
+      <footer class="ft">
+        <span>© 2026 智慧充电管理平台 · 济南</span>
+        <span>Designed by <a href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a></span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="../assets/echarts.min.js"></script>
+  <script src="../assets/map-jinan.js"></script>
+  <script src="../assets/data.js"></script>
+  <script src="js/main.js?v=li2"></script>
+</body>
+</html>

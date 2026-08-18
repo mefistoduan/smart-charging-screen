@@ -1,0 +1,121 @@
+/* ============================================================
+   LIGHT · 蓝白极简 —— 浅灰底 + 白卡 + 品牌蓝
+   ============================================================ */
+:root {
+  --bg: #f3f5f9; --card: #ffffff; --line: #e6eaf1;
+  --blue: #2563eb; --blue-soft: #eff4ff; --cyan: #06b6d4;
+  --green: #10b981; --amber: #f59e0b; --red: #ef4444; --violet: #8b5cf6;
+  --t1: #1e293b; --t2: #64748b; --t3: #94a3b8;
+  --num: 'Bahnschrift', 'Segoe UI', sans-serif;
+  --shadow: 0 1px 3px rgba(15, 23, 42, .06), 0 8px 24px rgba(15, 23, 42, .05);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: clamp(9.5px, .833vw, 17px); }
+html, body { width: 100%; height: 100%; overflow: auto; background: var(--bg); color: var(--t1); font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; -webkit-font-smoothing: antialiased; }
+
+#app { width: 100%; min-width: 75rem; height: 100vh; min-height: 42rem; display: flex; overflow: hidden; }
+
+/* ---------- 侧导航 ---------- */
+nav.nav {
+  flex: none; width: 13.5rem; background: var(--card); border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; padding: 1.1rem .9rem;
+}
+.logo { display: flex; align-items: center; gap: .65rem; padding: .2rem .3rem 1rem; border-bottom: 1px solid var(--line); }
+.logo svg { width: 2.2rem; height: 2.2rem; }
+.logo b { display: block; font-size: 1rem; letter-spacing: .06em; }
+.logo span { font-size: .66rem; color: var(--t3); }
+.tabs { display: flex; flex-direction: column; gap: .25rem; padding: 1rem 0; }
+.tab {
+  display: flex; align-items: center; gap: .55rem; padding: .6rem .8rem; border-radius: .55rem;
+  font-size: .85rem; color: var(--t2); text-decoration: none; transition: all .18s;
+}
+.tab:hover { background: var(--blue-soft); color: var(--blue); }
+.tab.on { background: var(--blue); color: #fff; font-weight: 600; box-shadow: 0 4px 12px rgba(37, 99, 235, .28); }
+.nav-foot { margin-top: auto; display: flex; flex-direction: column; gap: .55rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.user { display: flex; align-items: center; gap: .55rem; }
+.avt { width: 2.1rem; height: 2.1rem; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #06b6d4); color: #fff; display: flex; align-items: center; justify-content: center; font-size: .9rem; }
+.user b { display: block; font-size: .78rem; }
+.user span { font-size: .64rem; color: var(--t3); }
+.mail { font-size: .66rem; color: var(--blue); text-decoration: none; word-break: break-all; }
+.mail:hover { text-decoration: underline; }
+.home { font-size: .72rem; color: var(--t2); text-decoration: none; padding: .5rem .8rem; border: 1px solid var(--line); border-radius: .55rem; text-align: center; }
+.home:hover { background: var(--blue-soft); color: var(--blue); }
+
+/* ---------- 主区 ---------- */
+main.main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: auto; padding: 1.2rem 1.4rem; }
+header.hd { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 1rem; }
+header.hd h1 { font-size: 1.3rem; font-weight: 700; }
+header.hd h1 span { font-size: .72rem; color: var(--t3); font-weight: 400; margin-left: .5rem; }
+header.hd p { font-size: .72rem; color: var(--t2); margin-top: .3rem; }
+header.hd p em { font-style: normal; color: var(--blue); font-family: var(--num); }
+.filters { display: flex; gap: .3rem; background: var(--card); border: 1px solid var(--line); border-radius: .55rem; padding: .22rem; }
+.f { font-size: .74rem; color: var(--t2); padding: .35rem .9rem; border-radius: .4rem; cursor: pointer; }
+.f:hover { color: var(--blue); }
+.f.on { background: var(--blue); color: #fff; font-weight: 600; }
+
+/* 指标卡 */
+.metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: .8rem; padding-bottom: .8rem; }
+.m-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: .8rem; padding: .9rem 1rem;
+  box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .2s, box-shadow .2s; animation: pop .5s cubic-bezier(.2, .8, .3, 1) both;
+}
+.m-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(15,23,42,.06), 0 14px 32px rgba(15,23,42,.09); }
+.m-card:nth-child(2) { animation-delay: .05s; } .m-card:nth-child(3) { animation-delay: .1s; }
+.m-card:nth-child(4) { animation-delay: .15s; } .m-card:nth-child(5) { animation-delay: .2s; } .m-card:nth-child(6) { animation-delay: .25s; }
+@keyframes pop { from { opacity: 0; transform: translateY(.7rem) scale(.97); } }
+.m-card .ic { width: 2rem; height: 2rem; border-radius: .55rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.m-card .k { font-size: .72rem; color: var(--t2); }
+.m-card .v { font-family: var(--num); font-size: 1.55rem; font-weight: 800; line-height: 1; }
+.m-card .v small { font-size: .58em; color: var(--t3); font-weight: 400; margin-left: .25em; }
+.m-card .d { font-size: .66rem; color: var(--t3); display: flex; align-items: center; gap: .3rem; }
+.m-card .d b { font-weight: 600; }
+.m-card .d .up { color: var(--green); } .m-card .d .dn { color: var(--red); }
+
+/* 网格 */
+.grid { flex: 1; min-height: 0; display: grid; gap: .8rem; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: .8rem; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden;
+}
+.span2 { grid-column: span 2; }
+.row2 { grid-row: span 2; }
+.c-hd { flex: none; display: flex; align-items: center; justify-content: space-between; padding: .8rem 1rem .55rem; }
+.c-hd b { font-size: .88rem; font-weight: 700; }
+.pill { font-size: .64rem; color: var(--t2); background: var(--bg); border-radius: 99px; padding: .2rem .7rem; }
+.pill.blue { color: var(--blue); background: var(--blue-soft); }
+.pill.green { color: var(--green); background: #ecfdf5; }
+.c-bd { flex: 1; min-height: 0; padding: 0 .6rem .6rem; }
+.c-bd .chart { width: 100%; height: 100%; }
+
+/* TOP5 */
+.rank { height: 100%; display: flex; flex-direction: column; justify-content: space-evenly; padding: 0 .5rem; }
+.r-it { display: flex; align-items: center; gap: .6rem; font-size: .76rem; }
+.r-no { width: 1.3rem; height: 1.3rem; border-radius: .4rem; display: flex; align-items: center; justify-content: center; font-family: var(--num); font-weight: 700; font-size: .72rem; background: var(--bg); color: var(--t2); flex: none; }
+.r-it:nth-child(1) .r-no { background: #2563eb; color: #fff; }
+.r-it:nth-child(2) .r-no { background: #3b82f6; color: #fff; }
+.r-it:nth-child(3) .r-no { background: #93c5fd; color: #1e3a8a; }
+.r-it .r-nm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--t1); }
+.r-it .r-track { flex: 1.2; height: .4rem; border-radius: 99px; background: var(--bg); overflow: hidden; }
+.r-it .r-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, #93c5fd, #2563eb); transition: width 1.2s cubic-bezier(.25, .8, .3, 1); }
+.r-it .r-v { font-family: var(--num); color: var(--t1); font-weight: 700; }
+
+/* 订单表 */
+.order-card { display: flex; }
+.tb-hd, .tb-row { display: grid; grid-template-columns: 4rem minmax(0, 1fr) 4rem 3.4rem 3.8rem 4rem; gap: .4rem; align-items: center; padding: 0 .5rem; }
+.tb-hd { flex: none; font-size: .68rem; color: var(--t3); padding-bottom: .45rem; border-bottom: 1px solid var(--line); }
+.tb-scroll { flex: 1; min-height: 0; overflow: hidden; position: relative; }
+.tb-in { position: absolute; left: 0; right: 0; top: 0; will-change: transform; }
+.tb-row { height: 2rem; font-size: .74rem; color: var(--t1); border-bottom: 1px solid #f1f5f9; }
+.tb-row .n { font-family: var(--num); color: var(--t2); }
+.tb-row .s { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { font-size: .64rem; padding: .12rem .5rem; border-radius: 99px; font-weight: 500; }
+.badge.ok { color: var(--green); background: #ecfdf5; }
+.badge.run { color: var(--blue); background: var(--blue-soft); }
+
+/* 底部 */
+footer.ft { flex: none; display: flex; justify-content: space-between; padding-top: .8rem; font-size: .68rem; color: var(--t3); }
+footer.ft a { color: var(--blue); text-decoration: none; }
+
+@media (max-width: 1560px) { .metrics { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 1380px) { .logo span { display: none; } nav.nav { width: 11.5rem; } }

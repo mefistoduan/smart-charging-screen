@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>泉城充电 · 熔金指挥舱 | 智慧充电运营大屏</title>
+  <meta name="author" content="duanchangpeng@gmail.com">
+  <link rel="stylesheet" href="css/style.css?v=am2">
+</head>
+<body>
+  <div id="stage">
+    <!-- ===== 顶部 ===== -->
+    <header class="top">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 40 44">
+          <path d="M20 2 37 12v20L20 42 3 32V12Z" fill="none" stroke="url(#g1)" stroke-width="2"/>
+          <path d="M23 13 15 25h5l-2 8 9-13h-6z" fill="#ffcf7a"/>
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="44">
+            <stop offset="0" stop-color="#ffd98a"/><stop offset="1" stop-color="#c97a10"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="tt">
+          <h1>泉城充电 · 熔金指挥舱</h1>
+          <p>QUANCHENG CHARGING COMMAND · AMBER CONSOLE</p>
+        </div>
+      </div>
+      <div class="top-mid" id="clock-strip">
+        <span class="lab">SYSTEM TIME</span>
+        <span class="big" id="clk">--:--:--</span>
+        <span class="sep"></span>
+        <span class="lab" id="dte">----</span>
+      </div>
+      <div class="top-right">
+        <div class="st ok"><i></i>电网运行正常</div>
+        <a class="mail" href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a>
+        <a class="home" href="../index.html">▦ 展厅</a>
+      </div>
+    </header>
+
+    <!-- ===== 通栏 KPI ===== -->
+    <section class="kpis" id="kpis"></section>
+
+    <!-- ===== 主区 ===== -->
+    <main class="body">
+      <!-- 左：大地图 -->
+      <section class="map-zone">
+        <div class="map-head">
+          <span class="tick"></span><h2>全市站点分布 · STATION MAP</h2>
+          <span class="rule"></span>
+          <span class="lab">26 NODES · LIVE</span>
+        </div>
+        <div class="map-box">
+          <div class="chart" id="map"></div>
+          <div class="legend">
+            <span><i style="--c:#ffb52e"></i>正常运行</span>
+            <span><i style="--c:#ff7a1a"></i>高负荷</span>
+            <span><i style="--c:#ff5d5d"></i>故障</span>
+            <span><i style="--c:#6b5a3e"></i>离线</span>
+          </div>
+        </div>
+        <div class="map-foot" id="map-foot"></div>
+      </section>
+
+      <!-- 右：竖排面板 -->
+      <aside class="stack">
+        <section class="card">
+          <h3><span class="tick"></span>桩群状态 · PILE STATUS</h3>
+          <div class="chart" id="rose"></div>
+        </section>
+        <section class="card">
+          <h3><span class="tick"></span>24H 负荷曲线 · POWER LOAD</h3>
+          <div class="chart" id="load"></div>
+        </section>
+        <section class="card grow">
+          <h3><span class="tick"></span>区县电量榜 · DISTRICT TOP</h3>
+          <div class="bars" id="dist"></div>
+        </section>
+        <section class="card alerts">
+          <h3><span class="tick"></span>指挥快报 · BULLETIN</h3>
+          <div class="alist" id="alist"></div>
+        </section>
+      </aside>
+    </main>
+
+    <!-- ===== 底部 ===== -->
+    <footer class="foot">
+      <span class="dot"></span><span class="tag">LIVE WIRE</span>
+      <div class="tv"><div class="tt-move" id="ticker"></div></div>
+      <span class="copy">© 2026 AMBER CONSOLE · <a href="mailto:duanchangpeng@gmail.com">duanchangpeng@gmail.com</a></span>
+    </footer>
+  </div>
+
+  <script src="../assets/echarts.min.js"></script>
+  <script src="../assets/map-jinan.js"></script>
+  <script src="../assets/data.js"></script>
+  <script src="js/main.js?v=am2"></script>
+</body>
+</html>

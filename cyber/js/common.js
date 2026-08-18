@@ -15,16 +15,15 @@
     Number(n).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
   const pad = (n) => String(n).padStart(2, '0');
 
-  /* ---------- 数字翻牌（缓动 count-up，支持从当前值滚动） ---------- */
+  /* ---------- 数字翻牌（setInterval 时间轴，后台标签页也能完成） ---------- */
   function countUp(el, target, { duration = 1600, digits = 0, suffix = '', from = 0 } = {}) {
-    const start = performance.now();
-    function frame(t) {
-      const p = Math.min(1, (t - start) / duration);
+    const t0 = performance.now();
+    const timer = setInterval(() => {
+      const p = Math.min(1, (performance.now() - t0) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
       el.textContent = fmt(from + (target - from) * eased, digits) + suffix;
-      if (p < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+      if (p >= 1) clearInterval(timer);
+    }, 33);
   }
 
   /* ---------- 竖向无缝滚动（rAF 像素级） ---------- */
@@ -88,6 +87,7 @@
     host.innerHTML = `
       <div class="wing wing-l"><div class="inner">
         ${cfg.back ? `<div class="btn-back" id="btn-back">◈ 返回总览</div>` : ''}
+        ${cfg.home ? `<div class="btn-back" id="btn-home">▦ 风格展厅</div>` : ''}
         <div class="chip time"><span class="k">TIME</span><span class="v" id="hud-clock">--:--:--</span></div>
         <div class="chip"><span class="k">DATE</span><span class="v" id="hud-date">----</span></div>
         <div class="chip env"><span class="k">ENV</span><span class="v">多云 26℃ · AQI 45 · 电网正常</span></div>
@@ -108,6 +108,9 @@
       </div></div>`;
     if (cfg.back) {
       document.getElementById('btn-back').addEventListener('click', () => (location.href = 'index.html'));
+    }
+    if (cfg.home) {
+      document.getElementById('btn-home').addEventListener('click', () => (location.href = '../index.html'));
     }
     // 时钟
     const WEEK = ['日', '一', '二', '三', '四', '五', '六'];

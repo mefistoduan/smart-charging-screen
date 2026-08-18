@@ -22,6 +22,7 @@
     title: `${st.name} · 场站详情`,
     subtitle: `STATION DETAIL · ${st.id} · ${st.district}`,
     back: true,
+    home: true,
   });
   CC.decoratePanels();
   CC.playBoot(`${st.name}`);
